@@ -25,6 +25,7 @@ public class SimplyRead {
 		
 		Scanner input = new Scanner(System.in);
 		
+		int bookDeletionChoice = -1;
 		String userMenuChoice;
 		
 		do {
@@ -32,6 +33,8 @@ public class SimplyRead {
 			System.out.println("Menu");
 			System.out.println("[1] - Check Collection");
 			System.out.println("[2] - Add to Collection");
+			System.out.println("[3] - Update Readings");
+			System.out.println("[4] - Delete Element");
 			System.out.println("[q] - Quit");
 			userMenuChoice = input.next();
 			if(userMenuChoice.equals("1")) {
@@ -40,6 +43,15 @@ public class SimplyRead {
 				book_titles = libraryData.findBookData_TA(book_titles, "t");
 				book_authors = libraryData.findBookData_TA(book_authors, "a");
 				book_PercentageCompletion = libraryData.findCompletionPercentage(book_PercentageCompletion);
+			} else if(userMenuChoice.equals("3")) {
+				book_PercentageCompletion = libraryData.UpdatePercentage(book_PercentageCompletion, book_titles);
+			} else if(userMenuChoice.equals("4")) {
+				bookDeletionChoice = libraryData.getElement(bookDeletionChoice, book_titles);
+				if(bookDeletionChoice != -1) {
+					book_titles = libraryData.deleteStringElement(book_titles, bookDeletionChoice);
+					book_authors = libraryData.deleteStringElement(book_authors, bookDeletionChoice);
+					book_PercentageCompletion = libraryData.deleteDoubleElement(book_PercentageCompletion, bookDeletionChoice);
+				}
 			} else if(userMenuChoice.equals("Q")) {
 				userMenuChoice.toLowerCase();
 			}
